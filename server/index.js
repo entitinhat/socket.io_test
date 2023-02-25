@@ -18,6 +18,10 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`)
+    socket.on("send_message", (data) => {
+        socket.broadcast.emit("receive_message", data)
+        // server receives message and emit waiting for frontend to listen
+    })
 })
 
 server.listen(5000, () => {
